@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SalaryRange extends Model
 {
     protected $guarded = ['id'];
 
-    public function vacancies(): BelongsToMany
+    public function vacancy(): HasOne
     {
-        return $this->belongsToMany(Vacancy::class, 'vacancy_salary_ranges', 'salary_range_id', 'vacancy_id');
+        return $this->hasOne(Vacancy::class);
     }
 }

@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class JobType extends Model
 {
+
+    protected $table = 'job_types';
     protected $guarded = ['id'];
 
-   //belongs to many vacancy
-    public function vacancies(): BelongsToMany
+    public function vacancies()
     {
-         return $this->belongsToMany(Vacancy::class, 'vacancy_job_types', 'job_type_id', 'vacancy_id');
+        return $this->belongsToMany(Vacancy::class, 'vacancy_job_types', 'job_type_id', 'vacancy_id');
     }
 }

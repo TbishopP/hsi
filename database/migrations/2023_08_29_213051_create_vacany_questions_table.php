@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('vacancy_job_types', function (Blueprint $table) {
+        Schema::create('vacancy_questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vacancy_id')->constrained();
-            $table->foreignId('job_type_id')->constrained();
+            $table->foreignId('vacancy_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('question_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vacancy_job_types');
+        Schema::dropIfExists('vacany_questions');
     }
 };

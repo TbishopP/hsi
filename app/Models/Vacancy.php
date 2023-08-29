@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Awcodes\Curator\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Vacancy extends Model
 {
@@ -28,8 +31,23 @@ class Vacancy extends Model
         return $this->belongsToMany(Sector::class, 'vacancy_sectors', 'vacancy_id', 'sector_id');
     }
 
-    public function salaryRanges(): BelongsToMany
+    public function salaryRange(): BelongsTo
     {
-        return $this->belongsToMany(SalaryRange::class, 'vacancy_salary_ranges', 'vacancy_id', 'salary_range_id');
+        return $this->belongsTo(SalaryRange::class);
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function employerLogo(): HasOne
+    {
+        return $this->hasOne(Media::class, 'id', 'employer_logo');
+    }
+
+    public function questions(): BelongsToMany
+    {
+        return $this->belongsToMany(Question::class, 'vacancy_questions', 'vacancy_id', 'question_id');
     }
 }
